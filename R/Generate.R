@@ -1,4 +1,16 @@
+#' Generate the baseline data
+#'
+#' @description
+#' Generates the dataset of baseline covariates
+#'
+#' @param databaseSettings     The database settings defined using [createDatabaseSettings()]
+#'
+#' @return
+#' A dataframe with the observed covariates for each patient in the
+#' simulated dataset
+#'
 #' @export
+
 generateBaselineData <- function(
   databaseSettings
 ) {
@@ -29,7 +41,19 @@ generateBaselineData <- function(
 
 
 
+#' Generate linear predictor
+#'
+#' @description
+#' Generates the linear predictor of a model based on model settings
+#'
+#' @param data             The dataframe based on which the model will be defined
+#' @param modelSettings    The model settings defined based on [createModelSettings()]
+#'
+#' @return
+#' The linear predictor for each patient in the simulated dataset
+#'
 #' @export
+
 generateLinearPredictor <- function(
   data,
   modelSettings
