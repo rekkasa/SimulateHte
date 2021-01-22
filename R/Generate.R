@@ -10,6 +10,7 @@
 #' simulated dataset
 #'
 #' @export
+
 generateBaselineData <- function(
   databaseSettings
 ) {
@@ -52,6 +53,7 @@ generateBaselineData <- function(
 #' The linear predictor for each patient in the simulated dataset
 #'
 #' @export
+
 generateLinearPredictor <- function(
   data,
   modelSettings
