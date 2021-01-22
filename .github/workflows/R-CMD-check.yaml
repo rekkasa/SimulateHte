@@ -3,19 +3,12 @@
 on:
   push:
     branches:
-<<<<<<< HEAD
       - master
       - develop
   pull_request:
     branches:
-=======
-      - main
       - master
-  pull_request:
-    branches:
-      - main
->>>>>>> eab8b689bb8252e51ca00a98693d9514017ba385
-      - master
+      - develop
 
 name: R-CMD-check
 
