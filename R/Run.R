@@ -4,7 +4,7 @@
 #' Runs a single simulation based on the user-specified settings
 #'
 #' @param databaseSettings         The settings for the observed part of the dataset.
-#'                                 Created from [createDatabaseSettings()]
+#'                                 Created from [creaeDatabaseSettings()]
 #' @param propensitySettings       The settings for the true propensity score model.
 #'                                 Created from [createPropensitySettings()]
 #' @param baselineRiskSettings     The settings for the true baseline risk model.
@@ -24,21 +24,21 @@ runDataGeneration <- function(
   baselineRiskSettings,
   treatmentEffectSettings
 ) {
-
+  
   data <- generateBaselineData(
     databaseSettings = databaseSettings
   )
-
+  
   riskLinearPredictor <- generateLinearPredictor(
     data = data,
     modelSettings = baselineRiskSettings$modelSettings
   )
-
+  
   propensityLinearPredictor <- generateLinearPredictor(
     data = data,
     modelSettings = propensitySettings$modelSettings
   )
-
+  
   if (treatmentEffectSettings$type == "lp") {
     treatmentLinearPredictor <- generateLinearPredictor(
       data = data.frame(
@@ -47,7 +47,7 @@ runDataGeneration <- function(
       modelSettings = treatmentEffectSettings$modelSettings
     )
   }
-
+  
   if (propensitySettings$type == "binary") {
     treatment <- rbinom(
       n = databaseSettings$numberOfObservations,
@@ -55,15 +55,15 @@ runDataGeneration <- function(
       prob = exp(propensityLinearPredictor) / (1 + exp(propensityLinearPredictor))
     )
   }
-
+  
   res <- data.frame(
     data,
-    riskLinearPredictor = riskLinearPredictor,
+    trueRiskLinearPredictor = riskLinearPredictor,
     propensityLinearPredictor = propensityLinearPredictor,
     treatmentLinearPredictor = treatmentLinearPredictor,
     treatment = treatment
   )
-
+  
   if (propensitySettings$type == "binary" & baselineRiskSettings$type == "binary") {
     res <- res %>%
       dplyr::mutate(
@@ -75,8 +75,9 @@ runDataGeneration <- function(
       prob = exp(res$observedRiskLinearPredictor) / (1 + exp(res$observedRiskLinearPredictor))
     )
   }
-
-
+  
+  
   return(res)
-
+  
 }
+t
