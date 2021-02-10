@@ -13,7 +13,7 @@ runDataGeneration(
 }
 \arguments{
 \item{databaseSettings}{The settings for the observed part of the dataset.
-Created from \code{\link[=creaeDatabaseSettings]{creaeDatabaseSettings()}}}
+Created from \code{\link[=createDatabaseSettings]{createDatabaseSettings()}}}
 
 \item{propensitySettings}{The settings for the true propensity score model.
 Created from \code{\link[=createPropensitySettings]{createPropensitySettings()}}}

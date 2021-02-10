@@ -28,7 +28,10 @@ generateBaselineData <- function(
     observedCovariateList[[covariate]] <- tmp
   }
 
-  observedCovariates <- dplyr::bind_cols(observedCovariateList)
+  observedCovariates <- dplyr::bind_cols(
+    observedCovariateList,
+    .name_repair = ~ vctrs::vec_as_names(..., repair = "unique", quiet = TRUE)
+  )
   names(observedCovariates) <- paste0(
     "x",
     1:databaseSettings$numberOfCovariates
@@ -74,7 +77,10 @@ generateLinearPredictor <- function(
   }
 
   filledMatrix <- as.matrix(
-    dplyr::bind_cols(1, res)
+    dplyr::bind_cols(
+      1, res,
+      .name_repair = ~ vctrs::vec_as_names(..., repair = "unique", quiet = TRUE)
+    )
   )
   coefficientMatrix <- matrix(
     c(

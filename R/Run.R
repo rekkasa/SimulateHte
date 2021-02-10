@@ -4,7 +4,7 @@
 #' Runs a single simulation based on the user-specified settings
 #'
 #' @param databaseSettings         The settings for the observed part of the dataset.
-#'                                 Created from [creaeDatabaseSettings()]
+#'                                 Created from [createDatabaseSettings()]
 #' @param propensitySettings       The settings for the true propensity score model.
 #'                                 Created from [createPropensitySettings()]
 #' @param baselineRiskSettings     The settings for the true baseline risk model.
