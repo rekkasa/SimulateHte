@@ -54,7 +54,19 @@ createNormalDistributionSettings <- function(
 }
 
 
-
+#' @export
+createBinomialDistributionSettings <- function(
+  size = 1,
+  prob
+) {
+  return(
+    list(
+      type = "binomial",
+      size = size,
+      prob = prob
+    )
+  )
+}
 
 # createSimulationSettings <- function(
 #   outcome = "binary",

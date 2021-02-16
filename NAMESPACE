@@ -2,6 +2,7 @@
 
 export(calculatePEHE)
 export(createBaselineRiskSettings)
+export(createBinomialDistributionSettings)
 export(createDatabaseSettings)
 export(createModelSettings)
 export(createNormalDistributionSettings)

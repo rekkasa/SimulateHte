@@ -20,9 +20,15 @@ generateBaselineData <- function(
     covariateSettings <- databaseSettings$covariateDistributionSettings[[covariate]]
     if (covariateSettings$type == "normal") {
       tmp <- rnorm(
-        n = databaseSettings$numberOfObservations,
+        n    = databaseSettings$numberOfObservations,
         mean = covariateSettings$mean,
-        sd = covariateSettings$covariance
+        sd   = covariateSettings$covariance
+      )
+    } else if (covariateSettings$type == "binomial") {
+      tmp <- rbinom(
+        n    = databaseSettings$numberOfObservations,
+        size = covariateSettings$size,
+        prob = covariateSettings$prob
       )
     }
     observedCovariateList[[covariate]] <- tmp
