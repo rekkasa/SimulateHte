@@ -75,10 +75,20 @@ runDataGeneration <- function(
       size = 1,
       prob = exp(res$observedRiskLinearPredictor) / (1 + exp(res$observedRiskLinearPredictor))
     )
+
+    res <- res %>%
+      dplyr::mutate(
+        trueBenefit = expit(untreatedRiskLinearPredictor) - expit(treatedRiskLinearPredictor)
+      )
   }
 
 
   return(res)
 
 }
-t
+
+#' @export
+expit <- function(x) {
+  ret <- exp(x) / (1 + exp(x))
+  return(ret)
+}

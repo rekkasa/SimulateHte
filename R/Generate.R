@@ -94,7 +94,7 @@ generateLinearPredictor <- function(
       modelSettings$coefficients
     )
   )
-  ret <- filledMatrix %*% coefficientMatrix
+  ret <- as.vector(filledMatrix %*% coefficientMatrix)
 
   return(ret)
 
