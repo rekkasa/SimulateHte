@@ -87,7 +87,6 @@ runDataGeneration <- function(
 
 }
 
-#' @export
 expit <- function(x) {
   ret <- exp(x) / (1 + exp(x))
   return(ret)
