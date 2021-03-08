@@ -67,7 +67,7 @@ runDataGeneration <- function(
   if (propensitySettings$type == "binary" & baselineRiskSettings$type == "binary") {
     res <- res %>%
       dplyr::mutate(
-        treatedRiskLinearPredictor = riskLinearPredictor + treatmentLinearPredictor,
+        treatedRiskLinearPredictor = treatmentLinearPredictor,
         observedRiskLinearPredictor = treatment * treatedRiskLinearPredictor + (1 - treatment) * untreatedRiskLinearPredictor
       )
     res$outcome <- rbinom(
