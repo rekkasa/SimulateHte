@@ -40,7 +40,7 @@ runDataGeneration <- function(
   )
 
   if (treatmentEffectSettings$type == "lp") {
-    treatmentLinearPredictor <- generateLinearPredictor(
+    treatedLinearPredictor <- generateLinearPredictor(
       data = data.frame(
         lp = riskLinearPredictor
       ),
@@ -60,15 +60,16 @@ runDataGeneration <- function(
     data,
     untreatedRiskLinearPredictor = riskLinearPredictor,
     propensityLinearPredictor = propensityLinearPredictor,
-    treatmentLinearPredictor = treatmentLinearPredictor,
+    treatedLinearPredictor = treatedLinearPredictor,
     treatment = treatment
   )
 
   if (propensitySettings$type == "binary" & baselineRiskSettings$type == "binary") {
     res <- res %>%
       dplyr::mutate(
-        treatedRiskLinearPredictor = treatmentLinearPredictor,
-        observedRiskLinearPredictor = treatment * treatedRiskLinearPredictor + (1 - treatment) * untreatedRiskLinearPredictor
+        treatedRiskLinearPredictor = treatedLinearPredictor,
+        observedRiskLinearPredictor = treatment * treatedLinearPredictor +
+          (1 - treatment) * untreatedRiskLinearPredictor
       )
     res$outcome <- rbinom(
       n = databaseSettings$numberOfObservations,
