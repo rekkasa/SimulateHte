@@ -40,17 +40,21 @@ runDataGeneration <- function(
   )
 
   if (treatmentEffectSettings$type == "lp") {
-    treatedLinearPredictor <- generateLinearPredictor(
-      data = data.frame(
-        lp = riskLinearPredictor
-      ),
-      modelSettings = treatmentEffectSettings$modelSettings
+    dataForTreatedLp <- dplyr::tibble(
+      lp = riskLinearPredictor
     )
+  } else if (treatmentEffectSettings$type == "covariates") {
+    dataForTreatedLp <- data
   }
+
+  treatedLinearPredictor <- generateLinearPredictor(
+    data          = dataForTreatedLp,
+    modelSettings = treatmentEffectSettings$modelSettings
+  )
 
   if (propensitySettings$type == "binary") {
     treatment <- rbinom(
-      n = databaseSettings$numberOfObservations,
+      n    = databaseSettings$numberOfObservations,
       size = 1,
       prob = exp(propensityLinearPredictor) / (1 + exp(propensityLinearPredictor))
     )

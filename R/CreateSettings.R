@@ -68,23 +68,6 @@ createBinomialDistributionSettings <- function(
   )
 }
 
-# createSimulationSettings <- function(
-#   outcome = "binary",
-#   databaseSettings,
-#   baselineRiskSettings, # createModelSettings
-#   treatmentEffectSettings  # createModelSettings
-# ) {
-#   return(
-#     list(
-#       outcome = outcome,
-#       databaseSettings = databaseSettings,
-#       baselineRiskSettings = baselineRiskSettings,
-#       treatmentEffectSettings = treatmentEffectSettings
-#     )
-#   )
-# }
-
-
 
 #' Create model settings
 #'
