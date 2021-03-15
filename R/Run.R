@@ -40,20 +40,28 @@ runDataGeneration <- function(
   )
 
   if (treatmentEffectSettings$type == "lp") {
-    treatedLinearPredictor <- generateLinearPredictor(
-      data = data.frame(
-        lp = riskLinearPredictor
-      ),
-      modelSettings = treatmentEffectSettings$modelSettings
+    dataForTreatedLp <- dplyr::tibble(
+      lp = riskLinearPredictor
     )
+  } else if (treatmentEffectSettings$type == "covariates") {
+    dataForTreatedLp <- data
   }
+
+  treatedLinearPredictor <- generateLinearPredictor(
+    data          = dataForTreatedLp,
+    modelSettings = treatmentEffectSettings$modelSettings
+  )
 
   if (propensitySettings$type == "binary") {
     treatment <- rbinom(
-      n = databaseSettings$numberOfObservations,
+      n    = databaseSettings$numberOfObservations,
       size = 1,
-      prob = exp(propensityLinearPredictor) / (1 + exp(propensityLinearPredictor))
+      prob = plogis(propensityLinearPredictor)
     )
+  }
+
+  if (treatmentEffectSettings$type == "covariates") {
+    treatedLinearPredictor <- riskLinearPredictor + treatedLinearPredictor
   }
 
   res <- data.frame(
@@ -74,12 +82,12 @@ runDataGeneration <- function(
     res$outcome <- rbinom(
       n = databaseSettings$numberOfObservations,
       size = 1,
-      prob = exp(res$observedRiskLinearPredictor) / (1 + exp(res$observedRiskLinearPredictor))
+      prob = plogis(res$observedRiskLinearPredictor)
     )
 
     res <- res %>%
       dplyr::mutate(
-        trueBenefit = expit(untreatedRiskLinearPredictor) - expit(treatedRiskLinearPredictor)
+        trueBenefit = plogis(untreatedRiskLinearPredictor) - plogis(treatedRiskLinearPredictor)
       )
   }
 

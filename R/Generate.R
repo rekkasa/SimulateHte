@@ -73,12 +73,21 @@ generateLinearPredictor <- function(
   if (numberOfModelElements > 0) {
     for (i in 1:numberOfModelElements) {
       trans <- modelSettings$transformationSettings[[i]]
+
+      if (!is.list(trans)) {
+        trans <- list(trans)
+      }
+
       includedCovariates <- modelSettings$modelMatrix[i, ]
       res[[i]] <- apply(
-        data[as.logical(includedCovariates)],
+        sapply(
+          1:ncol(data[as.logical(includedCovariates)]),
+          function(x) trans[[x]](data[as.logical(includedCovariates)][[x]])
+        ),
         1,
-        trans
+        prod
       )
+
     }
   }
 
