@@ -56,8 +56,12 @@ runDataGeneration <- function(
     treatment <- rbinom(
       n    = databaseSettings$numberOfObservations,
       size = 1,
-      prob = exp(propensityLinearPredictor) / (1 + exp(propensityLinearPredictor))
+      prob = plogis(propensityLinearPredictor)
     )
+  }
+
+  if (treatmentEffectSettings$type == "covariates") {
+    treatedLinearPredictor <- riskLinearPredictor + treatedLinearPredictor
   }
 
   res <- data.frame(
@@ -78,12 +82,12 @@ runDataGeneration <- function(
     res$outcome <- rbinom(
       n = databaseSettings$numberOfObservations,
       size = 1,
-      prob = exp(res$observedRiskLinearPredictor) / (1 + exp(res$observedRiskLinearPredictor))
+      prob = plogis(res$observedRiskLinearPredictor)
     )
 
     res <- res %>%
       dplyr::mutate(
-        trueBenefit = expit(untreatedRiskLinearPredictor) - expit(treatedRiskLinearPredictor)
+        trueBenefit = plogis(untreatedRiskLinearPredictor) - plogis(treatedRiskLinearPredictor)
       )
   }
 
