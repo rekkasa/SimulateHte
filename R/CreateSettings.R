@@ -150,7 +150,8 @@ createTreatmentEffectSettings <- function(
   return(
     list(
       type = type,
-      modelSettings = modelSettings
+      modelSettings = modelSettings,
+      harm = harm
     )
   )
 }

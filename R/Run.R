@@ -17,6 +17,7 @@
 #'
 #' @export
 #' @importFrom dplyr %>%
+#' @importFrom dplyr .data
 
 runDataGeneration <- function(
   databaseSettings,
@@ -76,18 +77,26 @@ runDataGeneration <- function(
     res <- res %>%
       dplyr::mutate(
         treatedRiskLinearPredictor = treatedLinearPredictor,
-        observedRiskLinearPredictor = treatment * dplyr::.data$treatedLinearPredictor +
-          (1 - treatment) * dplyr::.data$untreatedRiskLinearPredictor
+        observedRiskLinearPredictor = treatment * .data$treatedLinearPredictor +
+          (1 - treatment) * .data$untreatedRiskLinearPredictor
       )
     res$outcome <- stats::rbinom(
       n = databaseSettings$numberOfObservations,
       size = 1,
-      prob = stats::plogis(res$observedRiskLinearPredictor)
+      prob = stats::plogis(res$observedRiskLinearPredictor) + treatmentEffectSettings$harm
     )
 
+    riskUntreated <- stats::plogis(res$untreatedRiskLinearPredictor)
+    riskTreated   <- stats::plogis(res$treatedRiskLinearPredictor)
+    harm          <- treatmentEffectSettings$harm
     res <- res %>%
       dplyr::mutate(
-        trueBenefit = stats::plogis(dplyr::.data$untreatedRiskLinearPredictor) - stats::plogis(dplyr::.data$treatedRiskLinearPredictor)
+        trueBenefit = riskUntreated - riskTreated - harm,
+        harm = harm
+      ) %>%
+      dplyr::relocate(
+        harm,
+        .before = .data$observedRiskLinearPredictor
       )
   }
 
