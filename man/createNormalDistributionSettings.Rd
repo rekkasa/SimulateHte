@@ -7,13 +7,13 @@
 createNormalDistributionSettings(mean = 0, covariance = 1)
 }
 \arguments{
-\item{mean}{The mean of the target normal distribution}
+\item{mean}{the mean of the target normal distribution}
 
-\item{covariance}{The covariance of the target normal distribution}
+\item{covariance}{the covariance of the target normal distribution}
 }
 \value{
-A list with the settings for simulating from a normal distribution
+a list with the settings for simulating from a normal distribution
 }
 \description{
-Create the settings for sampling from a normal distribution
+create the settings for sampling from a normal distribution
 }

@@ -4,12 +4,14 @@
 \alias{createTreatmentEffectSettings}
 \title{Create treatment effect settings}
 \usage{
-createTreatmentEffectSettings(type = "lp", modelSettings)
+createTreatmentEffectSettings(type = "lp", harm = 0, modelSettings)
 }
 \arguments{
 \item{type}{The reference of treatment effect. If set to "lp", treatment
 effect is modeled as a function of the linear predictor of
 baseline risk}
+
+\item{harm}{Constant treatment-related harm (probability).}
 
 \item{modelSettings}{The settings required for defining the model of treatment
 effect}

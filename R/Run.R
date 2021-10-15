@@ -53,10 +53,10 @@ runDataGeneration <- function(
   )
 
   if (propensitySettings$type == "binary") {
-    treatment <- rbinom(
+    treatment <- stats::rbinom(
       n    = databaseSettings$numberOfObservations,
       size = 1,
-      prob = plogis(propensityLinearPredictor)
+      prob = stats::plogis(propensityLinearPredictor)
     )
   }
 
@@ -76,18 +76,18 @@ runDataGeneration <- function(
     res <- res %>%
       dplyr::mutate(
         treatedRiskLinearPredictor = treatedLinearPredictor,
-        observedRiskLinearPredictor = treatment * treatedLinearPredictor +
-          (1 - treatment) * untreatedRiskLinearPredictor
+        observedRiskLinearPredictor = treatment * dplyr::.data$treatedLinearPredictor +
+          (1 - treatment) * dplyr::.data$untreatedRiskLinearPredictor
       )
-    res$outcome <- rbinom(
+    res$outcome <- stats::rbinom(
       n = databaseSettings$numberOfObservations,
       size = 1,
-      prob = plogis(res$observedRiskLinearPredictor)
+      prob = stats::plogis(res$observedRiskLinearPredictor)
     )
 
     res <- res %>%
       dplyr::mutate(
-        trueBenefit = plogis(untreatedRiskLinearPredictor) - plogis(treatedRiskLinearPredictor)
+        trueBenefit = stats::plogis(dplyr::.data$untreatedRiskLinearPredictor) - stats::plogis(dplyr::.data$treatedRiskLinearPredictor)
       )
   }
 

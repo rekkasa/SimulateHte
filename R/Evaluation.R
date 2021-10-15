@@ -24,7 +24,7 @@ calculatePEHE <- function(
          untreatedRiskLinearPredictor, riskLinearPredictor")
   }
   trueBenefit <- as.vector(
-    plogis(data$untreatedRiskLinearPredictor) - plogis(data$treatedRiskLinearPredictor)
+    stats::plogis(data$untreatedRiskLinearPredictor) - stats::plogis(data$treatedRiskLinearPredictor)
   )
 
   pehe <- (trueBenefit - predictedBenefit)^2
