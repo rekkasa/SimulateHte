@@ -31,13 +31,13 @@ createDatabaseSettings <- function(
 #' Normal distribution settings
 #'
 #' @description
-#' Create the settings for sampling from a normal distribution
+#' create the settings for sampling from a normal distribution
 #'
-#' @param mean        The mean of the target normal distribution
-#' @param covariance  The covariance of the target normal distribution
+#' @param mean        the mean of the target normal distribution
+#' @param covariance  the covariance of the target normal distribution
 #'
 #' @return
-#' A list with the settings for simulating from a normal distribution
+#' a list with the settings for simulating from a normal distribution
 #' @export
 
 createNormalDistributionSettings <- function(
@@ -54,7 +54,18 @@ createNormalDistributionSettings <- function(
 }
 
 
+#' Binomial distribution settings
+#'
+#' @description
+#' Create the settings for sampling from a binomial distribution.
+#'
+#' @param size  Number of trials (zero or more).
+#' @param prob  Probability of success on each trial.
+#'
+#' @return
+#' A list with the settings for simulating from a binomial distribution.
 #' @export
+
 createBinomialDistributionSettings <- function(
   size = 1,
   prob
@@ -123,6 +134,7 @@ createModelSettings <- function(
 #' @param type             The reference of treatment effect. If set to "lp", treatment
 #'                         effect is modeled as a function of the linear predictor of
 #'                         baseline risk
+#' @param harm             Constant treatment-related harm (probability).
 #' @param modelSettings    The settings required for defining the model of treatment
 #'                         effect
 #'
@@ -132,6 +144,7 @@ createModelSettings <- function(
 #' @export
 createTreatmentEffectSettings <- function(
   type = "lp",
+  harm = 0,
   modelSettings
 ) {
   return(
