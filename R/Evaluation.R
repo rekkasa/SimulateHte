@@ -23,9 +23,15 @@ calculatePEHE <- function(
     stop("Columns required in data: treatedRiskLinearPredictor,
          untreatedRiskLinearPredictor, riskLinearPredictor")
   }
-  trueBenefit <- as.vector(
-    stats::plogis(data$untreatedRiskLinearPredictor) - stats::plogis(data$treatedRiskLinearPredictor)
-  )
+
+  if (is.null(data[["trueBenefit"]])) {
+    message("No column named trueBenefit found. Calculating...")
+    trueBenefit <- as.vector(
+      stats::plogis(data$untreatedRiskLinearPredictor) - stats::plogis(data$treatedRiskLinearPredictor)
+    )
+  } else {
+    trueBenefit <- data[["trueBenefit"]]
+  }
 
   pehe <- (trueBenefit - predictedBenefit)^2
   pehe <- pehe[!is.na(pehe)]

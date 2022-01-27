@@ -80,10 +80,14 @@ runDataGeneration <- function(
         observedRiskLinearPredictor = treatment * .data$treatedLinearPredictor +
           (1 - treatment) * .data$untreatedRiskLinearPredictor
       )
+
+    probs <- stats::plogis(res$observedRiskLinearPredictor) + res$treatment * treatmentEffectSettings$harm
+    probs[probs < 0] <- 0
+    probs[probs > 1] <- 1
     res$outcome <- stats::rbinom(
       n = databaseSettings$numberOfObservations,
       size = 1,
-      prob = stats::plogis(res$observedRiskLinearPredictor) + treatmentEffectSettings$harm
+      prob = probs
     )
 
     riskUntreated <- stats::plogis(res$untreatedRiskLinearPredictor)
