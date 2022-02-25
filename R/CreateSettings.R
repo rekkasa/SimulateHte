@@ -54,6 +54,33 @@ createNormalDistributionSettings <- function(
 }
 
 
+
+#' Multivariate normal distribution settings
+#'
+#' @description
+#' create the settings for sampling from a multivariate normal distribution
+#'
+#' @param mean        A vector with the means of the target normal distribution
+#' @param covariance  The covariance matrix of the target multivariate normal distribution
+#'
+#' @return
+#' a list with the settings for simulating from a multivariate normal distribution
+#' @export
+
+createMultivariateNormalDistributionSettings <- function(
+  mean,
+  covariance
+  ) {
+  return(
+    list(
+      type = "multivariate normal",
+      mean = mean,
+      covariance = covariance
+    )
+  )
+}
+
+
 #' Binomial distribution settings
 #'
 #' @description

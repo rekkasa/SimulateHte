@@ -24,23 +24,33 @@ generateBaselineData <- function(
         mean = covariateSettings$mean,
         sd   = covariateSettings$covariance
       )
+      ret <- list(tmp)
     } else if (covariateSettings$type == "binomial") {
       tmp <- stats::rbinom(
         n    = databaseSettings$numberOfObservations,
         size = covariateSettings$size,
         prob = covariateSettings$prob
       )
+      ret <- list(tmp)
+    } else if (covariateSettings$type == "multivariate normal") {
+      mvTmp <- MASS::mvrnorm(
+        n     = databaseSettings$numberOfObservations,
+        mu    = covariateSettings$mean,
+        Sigma = covariateSettings$covariance
+      )
+      ret <- lapply(seq_len(ncol(mvTmp)), function(i) mvTmp[,i])
     }
-    observedCovariateList[[covariate]] <- tmp
+    observedCovariateList <- c(observedCovariateList, ret)
   }
 
   observedCovariates <- dplyr::bind_cols(
     observedCovariateList,
     .name_repair = ~ vctrs::vec_as_names(..., repair = "unique", quiet = TRUE)
   )
+  numberOfCovariates <- length(observedCovariateList)
   names(observedCovariates) <- paste0(
     "x",
-    1:databaseSettings$numberOfCovariates
+    1:numberOfCovariates
   )
 
   return(observedCovariates)
