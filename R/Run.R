@@ -96,17 +96,17 @@ runDataGeneration <- function(
     res <- res %>%
       dplyr::mutate(
         trueBenefit = riskUntreated - riskTreated - harm,
-        harm = harm
+        harm = harm,
+        rowId = 1:databaseSettings$numberOfObservations
       ) %>%
       dplyr::relocate(
         harm,
         .before = .data$observedRiskLinearPredictor
-      )
+      ) %>%
+      relocate(rowId)
   }
 
-
   return(res)
-
 }
 
 expit <- function(x) {
