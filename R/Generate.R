@@ -53,6 +53,11 @@ generateBaselineData <- function(
     1:numberOfCovariates
   )
 
+  if (!is.null(databaseSettings$postProcessing)) {
+    postProcessing <- databaseSettings$postProcessing
+    observedCovariates <- postProcessing(observedCovariates)
+  }
+
   return(observedCovariates)
 
 }

@@ -7,7 +7,8 @@
 createDatabaseSettings(
   numberOfObservations,
   numberOfCovariates,
-  covariateDistributionSettings
+  covariateDistributionSettings,
+  postProcessing = NULL
 )
 }
 \arguments{
@@ -17,6 +18,9 @@ createDatabaseSettings(
 
 \item{covariateDistributionSettings}{A list containing the distribution settings for
 each covariate in the dataset}
+
+\item{postProcessing}{A function to be applied after the
+generation of baseline data.}
 }
 \value{
 A list with the settings required to simulate a dataset

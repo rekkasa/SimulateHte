@@ -7,6 +7,8 @@
 #' @param numberOfCovariates                 The number of covariates iun the dataset
 #' @param covariateDistributionSettings      A list containing the distribution settings for
 #'                                           each covariate in the dataset
+#' @param postProcessing                     A function to be applied after the
+#'                                           generation of baseline data.
 #'
 #' @return
 #' A list with the settings required to simulate a dataset
@@ -15,13 +17,15 @@
 createDatabaseSettings <- function(
   numberOfObservations,
   numberOfCovariates,
-  covariateDistributionSettings # list of length = numberOfCovariates
+  covariateDistributionSettings,
+  postProcessing = NULL
 ) {
   return(
     list(
       numberOfObservations = numberOfObservations,
       numberOfCovariates = numberOfCovariates,
-      covariateDistributionSettings = covariateDistributionSettings
+      covariateDistributionSettings = covariateDistributionSettings,
+      postProcessing = postProcessing
     )
   )
 }
