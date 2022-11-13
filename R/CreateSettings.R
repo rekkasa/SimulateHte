@@ -7,6 +7,8 @@
 #' @param numberOfCovariates                 The number of covariates iun the dataset
 #' @param covariateDistributionSettings      A list containing the distribution settings for
 #'                                           each covariate in the dataset
+#' @param postProcessing                     A function to be applied after the
+#'                                           generation of baseline data.
 #'
 #' @return
 #' A list with the settings required to simulate a dataset
@@ -15,13 +17,15 @@
 createDatabaseSettings <- function(
   numberOfObservations,
   numberOfCovariates,
-  covariateDistributionSettings # list of length = numberOfCovariates
+  covariateDistributionSettings,
+  postProcessing = NULL
 ) {
   return(
     list(
       numberOfObservations = numberOfObservations,
       numberOfCovariates = numberOfCovariates,
-      covariateDistributionSettings = covariateDistributionSettings
+      covariateDistributionSettings = covariateDistributionSettings,
+      postProcessing = postProcessing
     )
   )
 }
@@ -47,6 +51,33 @@ createNormalDistributionSettings <- function(
   return(
     list(
       type = "normal",
+      mean = mean,
+      covariance = covariance
+    )
+  )
+}
+
+
+
+#' Multivariate normal distribution settings
+#'
+#' @description
+#' create the settings for sampling from a multivariate normal distribution
+#'
+#' @param mean        A vector with the means of the target normal distribution
+#' @param covariance  The covariance matrix of the target multivariate normal distribution
+#'
+#' @return
+#' a list with the settings for simulating from a multivariate normal distribution
+#' @export
+
+createMultivariateNormalDistributionSettings <- function(
+  mean,
+  covariance
+  ) {
+  return(
+    list(
+      type = "multivariate normal",
       mean = mean,
       covariance = covariance
     )

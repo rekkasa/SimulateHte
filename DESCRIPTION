@@ -1,7 +1,7 @@
 Package: SimulateHte
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.2
+Version: 0.3
 Author: Alexandros Rekkas
 Maintainer: Alexandros Rekkas <arekkas@erasmusmc.nl>
 Description: Simulate RCT data with treatment effect heterogeneity
@@ -9,7 +9,7 @@ License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 Imports:
   stats,
   dplyr,
