@@ -1,7 +1,7 @@
 Package: SimulateHte
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.2
+Version: 0.3
 Author: Alexandros Rekkas
 Maintainer: Alexandros Rekkas <arekkas@erasmusmc.nl>
 Description: Simulate RCT data with treatment effect heterogeneity
