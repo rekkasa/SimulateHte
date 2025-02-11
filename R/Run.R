@@ -103,7 +103,7 @@ runDataGeneration <- function(
         harm,
         .before = .data$observedRiskLinearPredictor
       ) %>%
-      relocate(rowId)
+      dplyr::relocate(.data$rowId)
   }
 
   return(res)
