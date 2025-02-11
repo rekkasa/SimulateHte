@@ -4,13 +4,15 @@ Title: What the Package Does (Title Case)
 Version: 0.3
 Author: Alexandros Rekkas
 Maintainer: Alexandros Rekkas <arekkas@erasmusmc.nl>
-Description: Simulate RCT data with treatment effect heterogeneity
+Description: A tool for simulating observtational data with
+  treatment effect heterogeneity.
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.3.2
 Imports:
   stats,
   dplyr,
-  vctrs
+  vctrs,
+  MASS
